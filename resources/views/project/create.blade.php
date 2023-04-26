@@ -31,7 +31,7 @@
 
     </form>
 
-    @if ($error->any())
+    {{-- @if ($error->any())
         <div class="allert allert-danger">
             <ul>
                 @foreach ($errors->all() as $error)
@@ -39,7 +39,7 @@
                 @endforeach
             </ul>
         </div>
-    @endif
+    @endif --}}
 
 </div>
 
