@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use App\Models\Project;
+use Illuminate\Support\Str;
 
 class ProjectController extends Controller
 {
@@ -37,19 +38,11 @@ class ProjectController extends Controller
      */
     public function store(StoreProjectRequest $request)
     {
-        $data = $request->validate([
-            'title'=>'required|max:30',
-            'customer'=>'max:30',
-            'description'=>'required',
-            'url'=>'nullable|url|max:220',
-        ]);
-        $new_project = new Project();
-        $new_project->title = $data['title'];
-        $new_project->customer = $data['customer'];
-        $new_project->description = $data['description'];
-        $new_project->url = $data['url'];
-        $new_project->save();
-        return to_route('project.show', $new_project);
+        $data = $request->validated();
+        $data['slug'] = Str::slug($data['title']);
+        $project = Project::create($data); //premdo dal model
+        return to_route('projects.show',$project);
+        
     }
 
     /**
@@ -94,7 +87,6 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
-        $project->delete();
-        return to_route('project.index');
+        //
     }
 }

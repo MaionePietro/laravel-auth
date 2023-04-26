@@ -15,12 +15,12 @@
                         <a href="{{$project->url}}"></a>
                         <div class="d-flex">
                             <a class="btn" href="{{ route('projects.show',$project) }}">VEDI</a>
-                            <a class="btn" href="{{ route('projects.edit',$project) }}">MODIFICA</a>
+                            {{-- <a class="btn" href="{{ route('projects.edit',$project) }}">MODIFICA</a>
                             <form action="{{ route('projects.destroy', $project) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <input type="submit" class="btn btn-danger" value="DELETE">
-                            </form>
+                            </form> --}}
                         </div>
                     </div>
                 </div>
