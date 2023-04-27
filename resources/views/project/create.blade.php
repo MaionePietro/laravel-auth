@@ -50,15 +50,6 @@
         <button type="submit" class="btn btn-primary">Salva</button>
 
     </form>
-    @if ($errors->any()) {{--controlla se ci sono errori--}}
-        <div class="allert allert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{$error}}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
 </div>
 
 @endsection
