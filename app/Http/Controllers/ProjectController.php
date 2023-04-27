@@ -16,7 +16,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projects = Project::all();
+        $projects = Project::withTrashed()->get()   ;
         return view('project.index', compact('projects'));
     }
 
@@ -42,7 +42,6 @@ class ProjectController extends Controller
         $data['slug'] = Str::slug($data['title']);
         $project = Project::create($data); //premdo dal model
         return to_route('projects.show',$project);
-        
     }
 
     /**
@@ -76,7 +75,13 @@ class ProjectController extends Controller
      */
     public function update(UpdateProjectRequest $request, Project $project)
     {
-        //
+        $data = $request->validated();
+        if($data['title'] !== $project->title){
+
+            $data['slug'] = Str::slug($data['title']);
+        }
+        $project->update($data);
+        return to_route('projects.show', $project);
     }
 
     /**
@@ -87,6 +92,19 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
-        //
+        if ($project->trashed()) {
+            $project->forceDelete(); // eliminazione def
+        } else {
+            $project->delete(); //eliminazione soft
+        }
+        return back();
+    }
+    
+    public function restore(Project $project)
+    {
+        if ($project->trashed()) {
+            $project->restore(); // eliminazione def
+        }
+        return back();
     }
 }
