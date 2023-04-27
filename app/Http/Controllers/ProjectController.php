@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use App\Models\Project;
+use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 class ProjectController extends Controller
@@ -99,7 +100,7 @@ class ProjectController extends Controller
         }
         return back();
     }
-    
+
     public function restore(Project $project)
     {
         if ($project->trashed()) {
